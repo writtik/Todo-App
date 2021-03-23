@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title  %} Home - {% endblock title %}
+{% block body %}
+
+<div class="container my-4">
+<h2>Add a To do</h2>
+<form action="/" method="POST">
+  <div class="mb-3">
+    <label for="title" class="form-label">To do Title</label>
+    <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="desc" class="form-label">To do Description</label>
+    <input type="text" class="form-control" name="desc" id="desc">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<div class="container my-4">
+<h2>Your To dos</h2>
+  {% if alltodo|length == 0 %}
+  <div class="alert alert-dark" role="alert">
+  No Todo Found!
+  </div>
+  {% else %}
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">No_</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Time</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for todo in alltodo %}
+    <tr>
+      <th scope="row">{{loop.index}}</th>
+      <td>{{todo.title}}</td>
+      <td>{{todo.desc}}</td>
+      <td>{{todo.date}}</td>
+      <td>
+      <a href="/delete/{{todo.No_}}" button type="button" class="btn btn-outline-dark mx-1">Delete</button>
+      <a href="/update/{{todo.No_}}" button type="button" class="btn btn-outline-dark mx=1">Update</button>
+      </td>
+    </tr>
+  {% endfor %}
+  {% endif %}
+
+  </tbody>
+</table>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+{% endblock body %}
